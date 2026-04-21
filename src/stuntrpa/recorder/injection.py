@@ -5,15 +5,29 @@ MUTATION_OBSERVER_JS = r"""
 
     let debounceTimer = null;
     let snapshotCount = 0;
+    let lastHash = null;
+
+    function hashCode(str) {
+        let h = 5381;
+        for (let i = 0; i < str.length; i++) {
+            h = ((h << 5) + h + str.charCodeAt(i)) & 0x7FFFFFFF;
+        }
+        return h;
+    }
 
     function captureSnapshot() {
+        const html = document.documentElement.outerHTML;
+        const hash = hashCode(html);
+        if (hash === lastHash) return;
+        lastHash = hash;
+
         snapshotCount++;
         const counter = document.getElementById('stuntrpa-snapshot-count');
         if (counter) counter.textContent = snapshotCount;
 
         if (typeof window.stuntRpaOnSnapshot === 'function') {
             window.stuntRpaOnSnapshot(JSON.stringify({
-                html: document.documentElement.outerHTML,
+                html: html,
                 url: window.location.href,
                 timestamp: Date.now(),
                 count: snapshotCount,
@@ -27,7 +41,7 @@ MUTATION_OBSERVER_JS = r"""
 
         new MutationObserver(() => {
             clearTimeout(debounceTimer);
-            debounceTimer = setTimeout(captureSnapshot, 500);
+            debounceTimer = setTimeout(captureSnapshot, __DEBOUNCE_MS__);
         }).observe(target, {
             childList: true,
             subtree: true,
