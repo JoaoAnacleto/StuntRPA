@@ -4,6 +4,7 @@ from pathlib import Path
 
 from playwright.async_api import async_playwright
 
+from stuntrpa.constants import SNAPSHOT_DEBOUNCE_MS
 from stuntrpa.recorder.injection import MUTATION_OBSERVER_JS, OVERLAY_JS, REQUEST_COUNTER_UPDATE_JS
 from stuntrpa.recorder.snapshot import SnapshotManager
 from stuntrpa.storage.scenario import Scenario
@@ -60,7 +61,9 @@ async def record_session(
 
         await page.expose_function("stuntRpaStopRecording", handle_stop)
 
-        await page.add_init_script(MUTATION_OBSERVER_JS)
+        await page.add_init_script(
+            MUTATION_OBSERVER_JS.replace("__DEBOUNCE_MS__", str(SNAPSHOT_DEBOUNCE_MS))
+        )
 
         async def inject_overlay() -> None:
             try:
