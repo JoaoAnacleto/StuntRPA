@@ -6,6 +6,7 @@ MUTATION_OBSERVER_JS = r"""
     let debounceTimer = null;
     let snapshotCount = 0;
     let lastHash = null;
+    const OVERLAY_ID = 'stuntrpa-overlay';
 
     function hashCode(str) {
         let h = 5381;
@@ -15,9 +16,20 @@ MUTATION_OBSERVER_JS = r"""
         return h;
     }
 
+    function isInsideOverlay(node) {
+        let n = node;
+        while (n) {
+            if (n.id === OVERLAY_ID) return true;
+            n = n.parentNode;
+        }
+        return false;
+    }
+
     function captureSnapshot() {
         const html = document.documentElement.outerHTML;
-        const hash = hashCode(html);
+        const overlay = document.getElementById(OVERLAY_ID);
+        const cleanHtml = overlay ? html.replace(overlay.outerHTML, '') : html;
+        const hash = hashCode(cleanHtml);
         if (hash === lastHash) return;
         lastHash = hash;
 
@@ -39,7 +51,9 @@ MUTATION_OBSERVER_JS = r"""
         const target = document.documentElement;
         if (!target) return;
 
-        new MutationObserver(() => {
+        new MutationObserver((mutations) => {
+            const hasRealChange = mutations.some(m => !isInsideOverlay(m.target));
+            if (!hasRealChange) return;
             clearTimeout(debounceTimer);
             debounceTimer = setTimeout(captureSnapshot, __DEBOUNCE_MS__);
         }).observe(target, {
