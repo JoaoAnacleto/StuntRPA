@@ -33,17 +33,17 @@ uvx stuntrpa --help
 uvx stuntrpa record https://example.com my-scenario
 
 # From a git repository
-uvx --from git+https://github.com/anomalyco/stuntrpa stuntrpa --help
+uvx --from git+https://github.com/JoaoAnacleto/StuntRPA stuntrpa --help
 
 # Make sure Playwright browsers are available (first time only)
-uvx --from git+https://github.com/anomalyco/stuntrpa playwright install
+uvx --from git+https://github.com/JoaoAnacleto/StuntRPA playwright install
 ```
 
 ### Install with uv
 
 ```bash
 # Clone the repository
-git clone https://github.com/anomalyco/stuntrpa.git
+git clone https://github.com/JoaoAnacleto/StuntRPA.git
 cd StuntRPA
 
 # Create virtual environment, resolve dependencies and install in editable mode
@@ -451,7 +451,7 @@ pytest --cov=stuntrpa
 
 ```bash
 # Clone and enter the project
-git clone https://github.com/anomalyco/stuntrpa.git
+git clone https://github.com/JoaoAnacleto/StuntRPA.git
 cd StuntRPA
 
 # Create environment, install all dependencies

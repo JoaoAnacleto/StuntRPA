@@ -18,9 +18,9 @@ dependencies = [
 stuntrpa = "stuntrpa.cli:app"
 
 [project.urls]
-Homepage = "https://github.com/anomalyco/stuntrpa"
-Repository = "https://github.com/anomalyco/stuntrpa"
-Issues = "https://github.com/anomalyco/stuntrpa/issues"
+Homepage = "https://github.com/JoaoAnacleto/StuntRPA"
+Repository = "https://github.com/JoaoAnacleto/StuntRPA"
+Issues = "https://github.com/JoaoAnacleto/StuntRPA/issues"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/stuntrpa"]
