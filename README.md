@@ -1,5 +1,7 @@
 # StuntRPA
 
+> 🇧🇷 [Versão em português](README.pt-BR.md)
+
 **Digital Twin ecosystem for RPA - Record & Replay web sessions.**
 
 StuntRPA captures complete web sessions (network traffic, DOM snapshots, navigation events) and replays them as self-contained "digital twins" of the original web application. This enables deterministic, offline-capable RPA testing and automation without relying on live servers.

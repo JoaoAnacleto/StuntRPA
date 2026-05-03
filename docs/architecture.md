@@ -1,5 +1,7 @@
 # Architecture
 
+> 🇧🇷 [Versão em português](architecture.pt-BR.md)
+
 This document describes the internal architecture, data flow, and design decisions of StuntRPA.
 
 ## Overview

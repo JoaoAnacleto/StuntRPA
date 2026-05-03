@@ -1,5 +1,7 @@
 # API Reference
 
+> 🇧🇷 [Versão em português](api.pt-BR.md)
+
 Complete reference for all public modules, classes, and functions in StuntRPA.
 
 ---
